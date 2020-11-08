@@ -26,6 +26,9 @@ For first Time run (To install packages that are required for this project)
 npm install 
 ```
 
+## database configure
+upload your database file on `/server/db` with file name *mydb.db* in a folder or put a database file path name in file `/server/db/connection.js`
+
 ```sh
 npm start 
 ```

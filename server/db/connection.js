@@ -14,7 +14,7 @@ class DB{
 	 * @return {db} database connection.
 	 */
 	create_connection() {
-		let db = new sqlite3.Database("/Users/rabnawazjansher/Documents/trailbee/email-sender/server/db/abc.db", sqlite3.OPEN_READWRITE, (err) => {
+		let db = new sqlite3.Database("./mydb.db", sqlite3.OPEN_READWRITE, (err) => {
 				if (err) {
 						console.error(err.message);
 				}
