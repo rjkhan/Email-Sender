@@ -1,0 +1,35 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "airbnb"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react"
+    ],
+    "parser": "babel-eslint",
+    "rules": {
+      "react/forbid-prop-types": 0,
+      "max-len": [2, { "code": 120, "ignoreTrailingComments": true }],
+      "import/extensions": 0,
+      "import/no-unresolved": 0,
+      "import/no-extraneous-dependencies": 0,
+      "class-methods-use-this": 0,
+      "comma-dangle": "warn",
+      "no-undef": 0,
+      "no-unused-expressions": 0,
+      "no-unused-vars": 0,
+      "semi": "warn"
+    }
+}

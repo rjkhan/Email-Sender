@@ -1,0 +1,54 @@
+{
+  "name": "bulk-email-sender",
+  "version": "0.1.0",
+  "description": "builk email sender",
+  "main": "index.js",
+  "start": "node server/index.js",
+  "keywords": [
+    "email",
+    "bulk",
+    "list"
+  ],
+  "author": "rabnawaz Jan sher",
+  "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "axios": "^0.20.0",
+    "dotenv": "^8.2.0",
+    "node-sass": "^4.14.1",
+    "react": "^16.13.1",
+    "react-boilerplate-form": "^0.1.2",
+    "react-dom": "^16.13.1",
+    "react-hook-form": "^6.11.0",
+    "react-scripts": "3.4.3"
+  },
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.20.6",
+    "eslint-plugin-react-hooks": "^4.1.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
