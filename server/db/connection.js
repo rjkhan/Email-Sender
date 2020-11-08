@@ -8,18 +8,23 @@ class DB{
 	*/
 	constructor(){}
 	
-/**
- * create database connection
- * 
- * @return {db} database connection.
- */
+	/**
+	 * create database connection
+	 * 
+	 * @return {db} database connection.
+	 */
 	create_connection() {
 		let db = new sqlite3.Database("/Users/rabnawazjansher/Documents/trailbee/email-sender/server/db/abc.db", sqlite3.OPEN_READWRITE, (err) => {
 				if (err) {
 						console.error(err.message);
 				}
-				else{
-				console.log('Connected to the mydatabase database.');}
+				else
+				{
+					console.log('Connected to the mydatabase database.');
+					// const schema = this.dbSchema();
+					// this.runSchema(schema)
+					
+				}	
 		});   
 		return db; 
 	}
@@ -139,6 +144,42 @@ class DB{
 			})
 		})
 	}
+
+	dbSchema(){
+		const table = `CREATE TABLE IF NOT EXISTS person (
+			id integer NOT NULL PRIMARY KEY,
+			first_name text ,
+			laste_name text,
+			email text,
+			country text,
+			gender text,
+			disease text,
+			external_id text,
+			ipaddress text
+		);`
+		return table; 
+	}
+	/**
+	 * run db schema.
+	 *
+	 * @param {string} dbSchema table schema.
+	 * @return {boolean} true if executed successfully.
+	 */
+
+	runSchema(dbSchema){
+		DB.exec(dbSchema, function(err){
+			if (err) {
+					console.log(err);
+					return false;
+			}
+			else{
+				console.log("schema executed");
+				return true;
+			}
+		});
+	}
+
+
 
 }
 
