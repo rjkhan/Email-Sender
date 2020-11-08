@@ -52,3 +52,14 @@ the server for frontend should be run on seperater terminal. The server will run
 ```sh
 http://127.0.0.1:3000/
 ```
+
+
+
+# Download data file 
+
+for sample run the following command in terminal(mac or linux) or cmd(windos) 
+
+```sh
+curl "https://api.mockaroo.com/api/81eabc20?count=100&key=81c4cd50"
+```
+

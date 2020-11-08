@@ -134,7 +134,6 @@ app.delete('/server/delete/:id', async (req, res) => {
     }    
   }
      
-
   
   con.close()
   if(errLog.length>0)
