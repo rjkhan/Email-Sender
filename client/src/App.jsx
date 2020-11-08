@@ -10,61 +10,49 @@ import SimpleForm from './SimpleForm';
 import Confirm from './EmailSend';
 
 class App extends Component {
+
 	constructor() {
 		super();
 		this.state = {
-			columns: [],
-			data: [],
+			formUpdate: false 
 		};
 
-		this.processFile = this.processFile.bind(this);
 	}
-
 	/**
-	 * Process File.
-	 * 
-	 * Split the csv content into columns and data.
-	 *
-	 * @author Rabnawaz jansher
-	 * @param {string} content  csv formatted string
-	 */
-	processFile(content) {
-		const contentArray = content.split('\n');
-		const columns = contentArray.shift().split(',');
-		const data = contentArray.map(ln => ln.split(','));
-
-		console.log(columns, data);
-
-		this.setState({
-			columns,
-			data,
-		});
+ * Returns update state.
+ * @return {formUpdate} state update.
+ */
+	onFormUpdated = () => {
+		this.setState({formUpdate:true},() => {
+			this.setState({formUpdate :false})
+		})
 	}
 
+	
+	
 	render() {
-		// TODO:
-		// Make Datatable into a class with props so that we can pass 
-		// {columns} and {data} into it, since now it consists of static functions.
+		if(this.state.formUpdate){
+			return ("<div>loading ...</div>")
+		}
+
 		return (
 			<div className="App">
 				<Container maxWidth="lg">
 					<Grid container spacing={3}>
 						<Grid item xs={8}>
 							<Box>
-								<Datatable/>
+								<Datatable />
 							</Box>
 						</Grid>
-			
-					 
 						<Grid item xs={4}>
 						<Box>
-							<SimpleForm/>
+							<SimpleForm callback={this.onFormUpdated} />
 							</Box>
 							<br></br>
 							<br></br>
 							<br></br>
 							<Box>
-								<FileUpload onSubmit={this.processFile} />
+								<FileUpload callback={this.onFormUpdated} />
 							</Box>
 							<Box>
 								<Confirm />

@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import {
-	Button,
 	Card,
 	CardContent,
 	CardActions,
 } from '@material-ui/core';
 import axios from 'axios';
 import * as XLSX from 'xlsx';
-import ReactFileReader from 'react-file-reader';
 
  // process CSV data
  const processData = dataString => {
@@ -21,13 +19,13 @@ import ReactFileReader from 'react-file-reader';
 		const row = dataStringLines[i].split(
 			/,(?![^"]*"(?:(?:[^"]*"){2})*[^"]*$)/
 		);
-		if (headers && row.length == headers.length) {
+		if (headers && row.length === headers.length) {
 			const obj = {};
 			for (let j = 0; j < headers.length; j++) {
 				let d = row[j];
 				if (d.length > 0) {
-					if (d[0] == '"') d = d.substring(1, d.length - 1);
-					if (d[d.length - 1] == '"') d = d.substring(d.length - 2, 1);
+					if (d[0] === '"') d = d.substring(1, d.length - 1);
+					if (d[d.length - 1] === '"') d = d.substring(d.length - 2, 1);
 				}
 				if (headers[j]) {
 					obj[headers[j]] = d;
@@ -71,38 +69,28 @@ class FileUpload extends Component {
 				headers: { 'content-type': 'application/x-www-form-urlencoded' },
 				data: formattedData
 			}
-			axios.post(apiUrl,option
-			)
+			axios.post(apiUrl,option)
 			.then((response) => {
-				debugger;
-				
+				//componentDidMount(){console.log(this.props.callback())}
+				this.props.callback()
 			})
 			.catch((err) => {
 				console.error(err);
-			});
-
-	
+			});	
 		};
-		
+
 		reader.readAsBinaryString(file);
 		
 	}
 		
-	
-
-	
 
 	render() {
 		return (
 				<Card>
 					<CardContent>
-					<input type="file" accept=".csv,.xlsx,.xls" onChange={this.handleSubmit} />
-						{/* <ReactFileReader handleFiles={this.handleSubmit} fileTypes={'.csv'}>
-						<button className='btn'>Upload</button>
-						</ReactFileReader> */}
+						<input type="file" accept=".csv,.xlsx,.xls" onChange={this.handleSubmit} />
 					</CardContent>
-					<CardActions style={{ justifyContent: 'flex-end' }}>
-						
+					<CardActions style={{ justifyContent: 'flex-end' }}>	
 					</CardActions>
 				</Card>
 		);

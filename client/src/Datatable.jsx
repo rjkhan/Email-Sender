@@ -20,7 +20,6 @@ import {
 	Checkbox,
 	IconButton,
 	Tooltip,
-	Switch,
 } from '@material-ui/core';
 import {
 	Delete,
@@ -164,23 +163,19 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 const EnhancedTableToolbar = (props) => {
 	const classes = useToolbarStyles();
-	const { numSelected,deleteSelected ,onRowsUpdate} = props;
+	const { numSelected,deleteSelected ,callback} = props;
 
 	const handleClickDelete = (event,del)=>{
 		const ids = del.toString().replaceAll(',','&')
 		const apiUrl = "http://localhost:4000/server/delete/" + ids;
-		debugger
 		axios.delete(apiUrl)
 		.then((response) => {
-			debugger
-			
+			callback(response.data.recipient) // call back for uddated table after delete			
 			//setRows(response.data.recipient[0])
 		})
 		.catch((err) => {
 			console.error(err);
 		});
-		debugger
-		//selected
 	};
 	return (
 		<Toolbar
@@ -253,6 +248,14 @@ export default function EnhancedTable() {
 	const [page, setPage] = React.useState(0);
 	const [rowsPerPage, setRowsPerPage] = React.useState(5);
 	const [rows, setRows] = React.useState([]);
+
+	const updateTable = (selectedRows) =>{
+		//console.log(selectedRows)
+		const rowsClone = rows.slice() // clone of orignal rows data
+		const newRows = rowsClone.filter(row => !selectedRows.includes(row.id));//filter deleted
+		setRows(newRows)
+		setSelected([]);
+	};
 	// didmount  
 	useEffect(()=>{
 		const apiUrl = "http://localhost:4000/server/recipients";
@@ -318,7 +321,7 @@ export default function EnhancedTable() {
 	return (
 		<div className={classes.root}>
 			<Paper className={classes.paper}>
-				<EnhancedTableToolbar numSelected={selected.length} deleteSelected={selected} onRowsUpdate={rows} />
+				<EnhancedTableToolbar numSelected={selected.length} deleteSelected={selected} onRowsUpdate={rows} callback={updateTable} />
 				<TableContainer>
 					<Table
 						className={classes.table}

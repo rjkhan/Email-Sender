@@ -1,9 +1,16 @@
-import React,{useEffect} from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import axios from 'axios';
 
-export default function SimpleForm() {
+export default function SimpleForm(props) {
 	const { register, errors, handleSubmit,reset } = useForm();
+	const {callback} = props;
+
+/**
+ * submit form.
+ * @param {data} data data is form data.
+ * @return {void}.
+ */
 	const onSubmit = data =>{
 		
 		// Recipent Object
@@ -15,8 +22,6 @@ export default function SimpleForm() {
 			gender: data.gender,
 			disease: data.disease
 		}];
-		//console.log(FormData)
-		//debugger 
 
 		// Api call to add recipent
 		const apiUrl =  "http://localhost:4000/server/add_recipients";
@@ -27,9 +32,8 @@ export default function SimpleForm() {
 		  axios.post(apiUrl,option
 		  )
 		  .then((response) => {
+				callback() // callback for update datatable
 			reset() // use to reset form
-			debugger;
-			
 		  })
 		  .catch((err) => {
 			console.error(err);

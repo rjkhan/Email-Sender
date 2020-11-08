@@ -5,17 +5,17 @@ var app = express();
 const cors = require('cors');
 var morgan  = require('morgan')
 const dotenv = require('dotenv').config();
+const DB = require('./db/connection');
 
 const bodyParser = require('body-parser');
-
 app.use(bodyParser.json());
 app.use(morgan('combined'));
 app.use(cors());
 
-const DB = require('./db/connection');
-const db = new DB()
 
+const db = new DB() // database class object
 
+// temp database
 const senderData = [
   {id:1,first_name:"abc",last_name:"xyz",email:"omallinder0@statcounter.com",country:"france",gender:"Male",disease:"Hourman Virus"},
   {id:2,first_name:"Loud",last_name:"Teodora",email:"jlorie1@census.gov",country:"Germany",gender:"Male",disease:"Death Stench"},
@@ -23,20 +23,18 @@ const senderData = [
 ];
 
 
-
 // insert recipent
 app.post('/server/add_recipients', async (req, res) => {
-  debugger
   const data = req.body.data
   const con = db.create_connection()  
-  let status = false;
-  let result = [];
-  let errLog= []
+  const status = false;
+  const result = [];
+  const errLog= []
   let response = ""
   const sql = `INSERT INTO Person('first_name','last_name','email','country','gender','disease') VALUES(?,?,?,?,?,?)`
   for (let index = 0; index < data.length; index++) {
-    let obj = data[index];
-    let row = [obj.first_name,obj.last_name,obj.email,obj.country,obj.gender,obj.disease];
+    const obj = data[index];
+    const row = [obj.first_name,obj.last_name,obj.email,obj.country,obj.gender,obj.disease];
       
     try{
       response = await db.insert_into_db(sql,row,con);
@@ -46,7 +44,9 @@ app.post('/server/add_recipients', async (req, res) => {
       errLog.push(error)
     }
   }
-  con.close()
+  con.close() // db connection close 
+
+  // return api response
   if(errLog.length>0)
     res.json({message:"Error",status:202})
   else
@@ -56,8 +56,7 @@ app.post('/server/add_recipients', async (req, res) => {
 
 // get recipient by id
 app.get('/server/get_recipients/:id', async (req, res) => {
-  debugger
-  
+
   const con = db.create_connection()  
   let status = false;
   let result = [];
@@ -74,7 +73,7 @@ app.get('/server/get_recipients/:id', async (req, res) => {
     errLog.push(error)
   }
 
-  con.close()
+  con.close() // db close
   if(errLog.length>0)
     res.json({message:"Error",status:202})
   else

@@ -7,7 +7,6 @@ import {
 } from '@material-ui/core';
 
 export default function EmailSend() {
-	const amount = 4;
 
 	return (
 		<Card>
