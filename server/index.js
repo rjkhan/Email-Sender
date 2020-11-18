@@ -105,7 +105,7 @@ app.get('/server/recipients', async (req, res) => {
   if(errLog.length>0)
     res.json({message:"Error",status:202})
   else
-    res.json({message:"",status:200,recipient:result})
+    res.json({message:"data retrieved successfully",status:200,recipient:result})
   
 });
 
@@ -138,7 +138,7 @@ app.delete('/server/delete/:id', async (req, res) => {
   if(errLog.length>0)
     res.json({message:"Error",status:202,error:errLog})
   else
-    res.json({message:"Data saved Deleted",status:200,recipient:result})
+    res.json({message:"Data Deleted",status:200,recipient:result})
   
 });
 
