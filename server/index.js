@@ -1,6 +1,7 @@
 
 const fs = require('fs');
 var express = require("express");
+
 var app = express();
 const cors = require('cors');
 var morgan  = require('morgan')
@@ -11,6 +12,23 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(morgan('combined'));
 app.use(cors());
+
+const { Sequelize } = require('sequelize');
+const sequelize = new Sequelize({
+  dialect: 'sqlite',
+  storage: '/Users/rabnawazjansher/Documents/trailbee/email-sender/server/db/mydb.db'
+});
+
+sequelize
+  .authenticate()
+  .then(function(err) {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(function (err) {
+    console.log('Unable to connect to the database:', err);
+  });
+
+
 
 
 const db = new DB() // database class object
@@ -24,7 +42,7 @@ const senderData = [
 
 
 // insert recipent
-app.post('/server/add_recipients', async (req, res) => {
+app.post('/server/recipients', async (req, res) => {
   const data = req.body.data
   const con = db.create_connection()  
   const status = false;
@@ -55,7 +73,7 @@ app.post('/server/add_recipients', async (req, res) => {
 });
 
 // get recipient by id
-app.get('/server/get_recipients/:id', async (req, res) => {
+app.get('/server/recipients/:id', async (req, res) => {
 
   const con = db.create_connection()  
   let status = false;
@@ -110,7 +128,7 @@ app.get('/server/recipients', async (req, res) => {
 });
 
 // delete recepient
-app.delete('/server/delete/:id', async (req, res) => {
+app.delete('/server/recipients/:id', async (req, res) => {
  
   const con = db.create_connection()  
   let status = false;

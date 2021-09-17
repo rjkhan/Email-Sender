@@ -82,7 +82,6 @@ class FileUpload extends Component {
 		reader.readAsBinaryString(file);
 		
 	}
-		
 
 	render() {
 		return (
